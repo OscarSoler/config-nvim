@@ -8,6 +8,7 @@
         ensure_installed = {"lua", "javascript", "ruby"},
         highlight = { enable = true },
         indent = { enable = true },  
+        endwise = { enable = true }
       })
     end
   }
