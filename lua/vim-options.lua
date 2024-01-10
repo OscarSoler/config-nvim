@@ -39,3 +39,23 @@ vim.opt.iskeyword:append('-')
 vim.keymap.set("i", "jj", "<ESC>", opts)
 vim.keymap.set("n", "<leader>V", ":vsplit<CR>", opts)
 vim.keymap.set("n", "<leader>w", "<cmd>write<cr>", opts)
+
+-- Move lines
+-- Normal mode mappings
+vim.keymap.set('n', '<C-j>', ':m .+1<CR>==', { silent = true })
+vim.keymap.set('n', '<C-k>', ':m .-2<CR>==', { silent = true })
+
+-- Insert mode mappings
+vim.keymap.set('i', '<C-j>', '<Esc>:m .+1<CR>==gi', { silent = true })
+vim.keymap.set('i', '<C-k>', '<Esc>:m .-2<CR>==gi', { silent = true })
+
+-- Visual mode mappings
+vim.keymap.set('v', '<C-j>', ':m \'>+1<CR>gv=gv', { silent = true })
+vim.keymap.set('v', '<C-k>', ':m \'<-2<CR>gv=gv', { silent = true })
+
+-- Enabled italic font
+vim.cmd [[
+  highlight Comment cterm=italic gui=italic
+  highlight Identifier cterm=italic gui=italic
+  highlight Keyword cterm=italic gui=italic
+]]
