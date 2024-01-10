@@ -52,10 +52,3 @@ vim.keymap.set('i', '<C-k>', '<Esc>:m .-2<CR>==gi', { silent = true })
 -- Visual mode mappings
 vim.keymap.set('v', '<C-j>', ':m \'>+1<CR>gv=gv', { silent = true })
 vim.keymap.set('v', '<C-k>', ':m \'<-2<CR>gv=gv', { silent = true })
-
--- Enabled italic font
-vim.cmd [[
-  highlight Comment cterm=italic gui=italic
-  highlight Identifier cterm=italic gui=italic
-  highlight Keyword cterm=italic gui=italic
-]]
