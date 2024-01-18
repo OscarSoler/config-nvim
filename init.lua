@@ -15,7 +15,6 @@ require("vim-options")
 require("lazy").setup("plugins")
 
 -- Apply italic font configuration after VimEnter event
-
 vim.cmd [[
   autocmd VimEnter * highlight Comment cterm=italic gui=italic
   autocmd VimEnter * highlight Identifier cterm=italic gui=italic
