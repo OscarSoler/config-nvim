@@ -52,3 +52,17 @@ vim.keymap.set('i', '<C-k>', '<Esc>:m .-2<CR>==gi', { silent = true })
 -- Visual mode mappings
 vim.keymap.set('v', '<C-j>', ':m \'>+1<CR>gv=gv', { silent = true })
 vim.keymap.set('v', '<C-k>', ':m \'<-2<CR>gv=gv', { silent = true })
+
+vim.keymap.set('i', '<C-k>', '<Esc>:m .-2<CR>==gi', { silent = true })
+
+vim.keymap.set('n', '<C-p>', ':bp<CR>')
+
+vim.opt.scrolloff = 8
+vim.opt.signcolumn = "yes"
+
+
+nnoremap("S", function()
+	local cmd = ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>"
+	local keys = vim.api.nvim_replace_termcodes(cmd, true, false, true)
+	vim.api.nvim_feedkeys(keys, "n", false)
+end)
