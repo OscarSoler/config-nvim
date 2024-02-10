@@ -9,7 +9,7 @@ return {
   config = function()
     vim.keymap.set('n', '<leader>t', '<Cmd>Neotree toggle<CR>')
     vim.keymap.set("n", "<leader>f", ":Neotree filesystem reveal left<CR>", {})
-    vim.keymap.set("n", "<leader>bf", ":Neotree buffers reveal float<CR>", {})
+    -- vim.keymap.set("n", "<leader>bf", ":Neotree buffers reveal float<CR>", {})
     require('nvim-web-devicons').setup()
 
     require('neo-tree').setup({

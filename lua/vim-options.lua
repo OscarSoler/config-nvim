@@ -1,3 +1,6 @@
+-- vim.keymap.set mode, shortcut, action, config
+local opts = { noremap = true, silent = true }
+
 vim.g.mapleader = " "
 
 -- Line numbers
@@ -16,7 +19,7 @@ vim.opt.wrap = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- Cursor line
+-- sursor line
 -- vim.opt.cursorline = false
 
 -- Appearance
@@ -35,7 +38,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.iskeyword:append('-')
 
--- KEY MAPS
+-- KEY tAPS
 vim.keymap.set("i", "jj", "<ESC>", opts)
 vim.keymap.set("n", "<leader>V", ":vsplit<CR>", opts)
 vim.keymap.set("n", "<leader>w", "<cmd>write<cr>", opts)
@@ -61,8 +64,6 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 
 
-nnoremap("S", function()
-	local cmd = ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>"
-	local keys = vim.api.nvim_replace_termcodes(cmd, true, false, true)
-	vim.api.nvim_feedkeys(keys, "n", false)
-end)
+-- Clear search highlight
+vim.keymap.set("n", "<esc>", ":noh<return><esc>", opts)
+
