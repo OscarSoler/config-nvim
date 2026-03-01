@@ -66,4 +66,3 @@ vim.opt.signcolumn = "yes"
 
 -- Clear search highlight
 vim.keymap.set("n", "<esc>", ":noh<return><esc>", opts)
-
