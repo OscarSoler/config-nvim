@@ -19,6 +19,24 @@ return {
           expander_collapsed = "",
           expander_expanded = "",
         },
+        icon = {
+          -- Renderiza iconos con mini.icons tanto para archivos como carpetas.
+          provider = function(icon, node)
+            local ok, MiniIcons = pcall(require, "mini.icons")
+            if not ok then
+              return
+            end
+            if node.type == "directory" then
+              local glyph, hl = MiniIcons.get("directory", node.name)
+              icon.text = glyph
+              icon.highlight = hl
+            elseif node.type == "file" then
+              local glyph, hl = MiniIcons.get("file", node.name)
+              icon.text = glyph
+              icon.highlight = hl
+            end
+          end,
+        },
         git_status = {
           symbols = {
             -- letras a la derecha (M, U, etc.)
@@ -59,13 +77,17 @@ return {
     -- Se aplican en un autocmd ligado al colorscheme para que no los pise
     -- onedark al recargarse.
     local function neo_tree_highlights()
-      -- Nombre de carpetas en blanco/gris claro (antes rosa)
+      -- Paleta Catppuccin Mocha
+      local green = "#a6e3a1" -- verde de catppuccin
+
+      -- El icono de carpeta lo pinta mini.icons vía el provider (azul Azure).
+      -- Solo dejamos el nombre neutro (gris claro) en vez del rosa de onedark.
       vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = "#abb2bf" })
 
-      -- Archivos con cambios en verde (antes gris)
-      vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = "#98c379" })
-      vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = "#98c379" })
-      vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { fg = "#98c379" })
+      -- Archivos con cambios en verde de catppuccin
+      vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = green })
+      vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = green })
+      vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { fg = green })
     end
 
     neo_tree_highlights()
