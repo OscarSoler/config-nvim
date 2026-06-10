@@ -73,6 +73,16 @@ return {
     vim.keymap.set("n", "<leader>f", ":Neotree filesystem reveal left<CR>", {})
     vim.keymap.set("n", "<leader>bf", ":Neotree buffers reveal float<CR>", {})
 
+    -- Toggle de foco: si estás en el árbol, salta al archivo; si estás en
+    -- el archivo, salta al árbol (abriéndolo si está cerrado).
+    vim.keymap.set("n", "<leader>e", function()
+      if vim.bo.filetype == "neo-tree" then
+        vim.cmd.wincmd("p")
+      else
+        vim.cmd("Neotree focus")
+      end
+    end, { desc = "Toggle focus Neo-tree / archivo" })
+
     -- Colores personalizados de neo-tree.
     -- Se aplican en un autocmd ligado al colorscheme para que no los pise
     -- onedark al recargarse.

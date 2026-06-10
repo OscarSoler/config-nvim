@@ -19,6 +19,7 @@ return {
           "lua_ls",
           "html",
           "cssls",
+          "ruby_lsp",
         },
       })
     end,
@@ -34,7 +35,17 @@ return {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
         callback = function(ev)
           local opts = { buffer = ev.buf }
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+          -- gd: salta directo a la definición sin dejar abierta la quickfix.
+          -- Si hay una sola, va derecho; si hay varias, abre un selector de
+          -- Telescope (que se cierra solo) en vez de la lista quickfix.
+          vim.keymap.set("n", "gd", function()
+            local ok, builtin = pcall(require, "telescope.builtin")
+            if ok then
+              builtin.lsp_definitions()
+            else
+              vim.lsp.buf.definition()
+            end
+          end, opts)
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
           vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
@@ -62,7 +73,26 @@ return {
         end,
       })
 
-      vim.lsp.enable({ "ts_ls", "eslint", "lua_ls", "html", "cssls" })
+      -- Ruby: ruby_lsp usa RuboCop como linter y formatter.
+      vim.lsp.config("ruby_lsp", {
+        init_options = {
+          formatter = "rubocop",
+          linters = { "rubocop" },
+        },
+        on_attach = function(client, bufnr)
+          -- Formatea al guardar usando RuboCop vía ruby_lsp.
+          if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.format({ bufnr = bufnr, id = client.id })
+              end,
+            })
+          end
+        end,
+      })
+
+      vim.lsp.enable({ "ts_ls", "eslint", "lua_ls", "html", "cssls", "ruby_lsp" })
     end,
   },
 }
